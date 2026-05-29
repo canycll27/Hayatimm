@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeynep'in Dünyası ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #0d0d11;
+            color: #fff;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a0b2e 0%, #050508 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .lock-box {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .lock-box h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #ff3366;
+            margin-bottom: 20px;
+        }
+
+        .lock-box p {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .lock-box input {
+            padding: 12px 20px;
+            width: 80%;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            text-align: center;
+            font-size: 1.1rem;
+            outline: none;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .lock-box input:focus {
+            border-color: #ff3366;
+            box-shadow: 0 0 15px rgba(255, 51, 102, 0.4);
+        }
+
+        .lock-box button {
+            margin-top: 15px;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 25px;
+            background: #ff3366;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .lock-box button:hover {
+            background: #ff1a53;
+            transform: scale(1.05);
+        }
+
+        #main-content {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            background: linear-gradient(45deg, #ff3366, #ff99cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        .counter-container {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: inset 0 0 20px rgba(255,51,102,0.05);
+        }
+
+        .counter-container h3 {
+            font-size: 1.2rem;
+            color: #ff99cc;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .time-box {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 12px;
+            border-bottom: 3px solid #ff3366;
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .time-box label {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .cards-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #ff3366;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '❤️';
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            font-size: 5rem;
+            opacity: 0.03;
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: #ff3366;
+        }
+
+        .card:hover::before {
+            right: 10px;
+            bottom: 10px;
+            opacity: 0.1;
+        }
+
+        .card h4 {
+            color: #ff99cc;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #ccc;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .secret-letter {
+            background: linear-gradient(135deg, rgba(255,51,102,0.1) 0%, rgba(26,11,46,0.5) 100%);
+            border: 1px solid rgba(255,51,102,0.2);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .secret-letter p {
+            font-size: 1.1rem;
+            color: #eee;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .signature {
+            margin-top: 25px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #ff3366;
+        }
+
+        .heart-particle {
+            position: fixed;
+            color: rgba(255, 51, 102, 0.2);
+            font-size: 1.5rem;
+            pointer-events: none;
+            z-index: -1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" src="sarki.mp3" loop></audio>
+
+    <div id="login-screen">
+        <div class="lock-box">
+            <h2>Bu Dünya Sadece Sana Özel...</h2>
+            <p>Lütfen kalbinin sahibinin adını küçük harflerle yaz.</p>
+            <input type="text" id="password-input" placeholder="Buraya yaz...">
+            <br>
+            <button onclick="checkPassword()">Kapıyı Aç ✨</button>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <button id="music-btn" onclick="toggleMusic()" style="background: rgba(255,51,102,0.2); border: 1px solid #ff3366; color: #fff; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; outline: none;">
+                🎵 Müziği Durdur
+            </button>
+        </div>
+
+        <header>
+            <h1>Zeynep</h1>
+            <p>Dünyanın en güzel detayına hoş geldin.</p>
+        </header>
+
+        <div class="counter-container">
+            <h3>Hayatıma Güzellik Katan O Günden Beri...</h3>
+            <div class="time-grid">
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <label>Gün</label>
+                </div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <label>Saat</label>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <label>Dakika</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="cards-section">
+            <h2 class="section-title">Senin Hakkında Bilmediğin Küçük Şeyler</h2>
+            
+            <div class="card">
+                <h4>✨ Dünyayı Güzelleştiren Gülüşün</h4>
+                <p>Gülüşünün etraftaki her şeyi nasıl bir anda sakinleştirdiğini muhtemelen fark etmiyorsun ama benim dünyamda her şeyi değiştiren tam olarak o an.</p>
+            </div>
+
+            <div class="card">
+                <h4>💡 En Güzel Detayım</h4>
+                <p>Bazen sadece adının geçmesi bile içimde bir şeylerin çiçek açmasına yetiyor. Bu sitedeki her bir kod satırı, sana olan hayranlığımın ufak bir yansıması.</p>
+            </div>
+
+            <div class="card">
+                <h4>🌟 Kimsenin Bilmediği O Şey</h4>
+                <p>Herkes senin dışarıya bakan güzel yüzünü görür, bense ruhundaki o eşsiz, saf ve çocuksu dünyayı görüyorum. İşte bu yüzden sen herkesten çok farklısın.</p>
+            </div>
+        </div>
+
+        <div class="secret-letter">
+            <h2 class="section-title">Küçük Bir Not...</h2>
+            <p>"Sen benim bu hayatta başıma gelen en güzel, en koruyası ve en sevilesi şeysin. İyi ki varsın, iyi ki benimlesin Zeynep. Geleceğimizin de bu site gibi tamamen bize özel ve harika olması dileğiyle..."</p>
+            <div class="signature">Seni Çok Xenon Biri... ❤️</div>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const input = document.getElementById('password-input').value.trim().toLowerCase();
+            
+            if (input === 'zeynep') {
+                const loginScreen = document.getElementById('login-screen');
+                const mainContent = document.getElementById('main-content');
+                const music = document.getElementById('bg-music');
+                
+                music.play().catch(error => console.log("Müzik başlatılamadı:", error));
+                
+                loginScreen.style.transform = 'translateY(-100%)';
+                
+                setTimeout(() => {
+                    loginScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
+                    setInterval(createHeart, 400);
+                }, 1000);
+            } else {
+                alert('Hmm... Bu isim doğru kapıyı açmadı sanki? 🔑');
+            }
+        }
+
+        // TARİH AYARI: 2 MAYIS OLARAK GÜNCELLENDİ
+        const startDate = new Date(2026, 4, 2, 0, 0, 0); 
+
+        function updateCounter() {
+            const now = new Date();
+            const difference = now - startDate;
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((difference / 1000 / 60) % 60);
+
+            document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+            document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+        }
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerText = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            heart.style.fontSize = Math.random() * 1 + 1 + 'rem';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            const btn = document.getElementById('music-btn');
+            if (music.paused) {
+                music.play();
+                btn.innerText = "🎵 Müziği Durdur";
+                btn.style.background = "rgba(255,51,102,0.2)";
+            } else {
+                music.pause();
+                btn.innerText = "🔇 Müziği Başlat";
+                btn.style.background = "rgba(255,255,255,0.1)";
+            }
+        }
+    </script>
+</body>
+</html>
